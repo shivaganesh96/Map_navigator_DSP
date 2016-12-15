@@ -89,19 +89,7 @@ return rear;
 void print_path(int prev[],int destination,int source)
 {
 
-   /* if(head==NULL)
-    {
-        printf("empty\n");
-        return;
-    }
-    lnode * p = head;
-    while(p!=NULL)
-    {
-        printf("%d ",p->val);
-        p = p->next;
-    }
-    printf("\n");
-    return;*/
+ 
   int temp = destination;
 list * head = NULL;
 while(temp != source)
@@ -199,20 +187,19 @@ for(i = 0;i<queries;i++)
       fscanf(query,"%d",&destination);
       hash[source] = 0; //setting source distance to 0;
       PQ_enqueue(&head,source,hash); //pushing source into queue
-      //printf("entering loop\n");
+    
       lnode * hold =NULL;
-      //printf("1\n");
+      
       int check = 1;
        /////////////////////////////////LOOP/////////////////////////////////////////////
       while((check==1 || hold->val != destination) && (check==1||head!=NULL))
 	{ 
 	  hold = pop(&head);
-//printf("\n curr : %d \n",hold->val);
-//printf("\n dist:%d \n",hold->dist);
+
 	  check = 0;
-	  //printf("hh\n");
+
           list * p = adlist[hold->val];
-	  //printf("here\n");
+	
 	  while(p!=NULL) // updating PQ
 	    {
 	      int result = calculate_dist(hash[hold->val],vertlist[hold->val],vertlist[p->val]); // calculating distance
@@ -221,20 +208,20 @@ for(i = 0;i<queries;i++)
 		  hash[p->val] = result;
                   prev[p->val] = hold->val;
 		  PQ_enqueue(&head,p->val,hash);
-		  // printf("1a\n");
+		
                   
 		}
-	      //printf("1b\n");
+	  
 	      p = p->next;
-            //  print_path(head);
-	    }// printf("2\n");
+          
+	    }
 
 if(hold->val == destination)
 {
 back = 1;
 }
-//printf("test\n");
-	}//printf("3\n");
+
+	}
         //////////////////////END OF LOOP///////////////////////////////////////////
      if(head == NULL && back == 0) //incase destination is inreachable the Priority queue is empty
 	{
